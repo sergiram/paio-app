@@ -1,38 +1,44 @@
-type Screen = 'home' | 'hogar' | 'tareas' | 'memoria';
-type BottomNavProps = { active: Screen; onNavigate: (screen: Screen) => void };
-const items: Array<[Screen, string, string]> = [
-  ['home', '⌂', 'Home'],
-  ['hogar', '⌘', 'Hogar'],
-  ['tareas', '▦', 'Tareas'],
-  ['memoria', '◌', 'Memoria'],
-];
-export function BottomNav({ active, onNavigate }: BottomNavProps) {
+import { NavLink } from 'react-router';
+
+export function BottomNav() {
   return (
     <nav className="bottom-nav" aria-label="Navegación principal">
       <div className="nav-items">
-        {items.slice(0, 2).map(([screen, icon, label]) => (
-          <button
-            key={screen}
-            className={active === screen ? 'active' : ''}
-            onClick={() => onNavigate(screen)}
-          >
-            <span>{icon}</span>
-            {label}
-          </button>
-        ))}
+        <NavLink
+          to="/home"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          <span>⌂</span>
+          Home
+        </NavLink>
+
+        <NavLink
+          to="/hogar"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          <span>⌘</span>
+          Hogar
+        </NavLink>
+
         <button className="orb-nav" aria-label="Asistente PAIO">
           <span>✦</span>
         </button>
-        {items.slice(2).map(([screen, icon, label]) => (
-          <button
-            key={screen}
-            className={active === screen ? 'active' : ''}
-            onClick={() => onNavigate(screen)}
-          >
-            <span>{icon}</span>
-            {label}
-          </button>
-        ))}
+
+        <NavLink
+          to="/tareas"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          <span>▦</span>
+          Tareas
+        </NavLink>
+
+        <NavLink
+          to="/memoria"
+          className={({ isActive }) => (isActive ? 'active' : '')}
+        >
+          <span>◌</span>
+          Memoria
+        </NavLink>
       </div>
     </nav>
   );
